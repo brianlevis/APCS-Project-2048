@@ -7,6 +7,10 @@ public class NumberTile extends Tile{
 		// TODO Auto-generated constructor stub
 	}
 
+	public NumberTile() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/*public NumberTile(int color, String number) {
 		switch((int)number) {
 			case
