@@ -25,11 +25,11 @@ public class Game extends Canvas implements Runnable {
 	
 	Tile test1 = new Tile(100, 100, 0xffeee4da, "trull");
 	Tile test2 = new Tile(50, 50, 0xffff00fe, "trull");
-	Tile test3 = new Tile(700, 700, 0xffdaddad, "trull");
+	//Tile test3 = new Tile(700, 700, 0xffdaddad, "trull");
 	
 	// ********************
 
-	private static int scale = 750;
+	private static int scale = 650;
 	private static int width = 1 * scale;
 	private static int height = 1 * scale;
 	public static String title = "2048";
@@ -41,6 +41,7 @@ public class Game extends Canvas implements Runnable {
 
 	private Screen screen;
 	private Tile tile = new Tile();
+	private GameManager manager = new GameManager();
 
 	private BufferedImage image = new BufferedImage(width, height,
 			BufferedImage.TYPE_INT_RGB);
