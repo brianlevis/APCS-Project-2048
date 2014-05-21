@@ -25,6 +25,7 @@ public class Game extends Canvas implements Runnable {
 	
 	Tile test1 = new Tile(100, 100, 0xffeee4da, "trull");
 	Tile test2 = new Tile(50, 50, 0xffff00fe, "trull");
+	Tile test3 = new Tile(700, 700, 0xffdaddad, "trull");
 	
 	// ********************
 

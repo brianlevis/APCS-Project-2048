@@ -12,7 +12,7 @@ public class Tile {
 	public int[] pixels; // Not a 2D array because yolo
 
 	public String text;
-	public int height, width, color, up, low, rw, rwt, arbnum, arbnumt;
+	public int height, width, color;
 	public int xPosition, yPosition;
 
 	public Tile() {
@@ -31,28 +31,37 @@ public class Tile {
 
 		for (int i = 0; i < pixels.length; i++)
 			for (int j = 0; j < width; j++)
-				if (i >= 7 + (width * j) && i <= 93 + (width * j)) pixels[i] = color;
+				if (i >= 9 + (width * j) && i <= (width - 10) + (width * j)) pixels[i] = color;
 
-		for (int i = 0; i < pixels.length; i++)
-			for (int j = 0; j < height; j++)
-				if (i <= width * 8 && i <= width * 92) pixels[i] = color;
+		for (int i = width * 9; i < pixels.length - (width * 4); i++)
+			for (int j = 0; j < width - 8; j++)
+				if (i <= width * j + 8 && i <= width * j - 1) pixels[i] = color;
 
-		for (int i = width; i < pixels.length - width; i++)
+		for (int i = width; i < pixels.length - width + 1; i++)
 			for (int j = 0; j < width; j++)
-				if (i >= 5 + (width * j) && i <= 95 + (width * j)) pixels[i] = color;
+				if (i >= 5 + (width * j) && i <= (width - 6) + (width * j)) pixels[i] = color;
 
-		for (int i = width * 2; i < pixels.length - width * 2; i++)
+		for (int i = width * 2; i < pixels.length - width * 2 + 1; i++)
 			for (int j = 0; j < width; j++)
-				if (i >= 3 + (width * j) && i <= 97 + (width * j)) pixels[i] = color;
+				if (i >= 3 + (width * j) && i <= (width - 4) + (width * j)) pixels[i] = color;
 
-		for (int i = width * 3; i < pixels.length - width * 3; i++)
+		for (int i = width * 3; i < pixels.length - width * 3 + 1; i++)
 			for (int j = 0; j < width; j++)
-				if (i >= 2 + (width * j) && i <= 98 + (width * j)) pixels[i] = color;
+				if (i >= 2 + (width * j) && i <= (width - 3) + (width * j)) pixels[i] = color;
 
-		for (int i = width * 5; i < pixels.length - width * 5; i++)
+		for (int i = width * 5; i < pixels.length - width * 5 + 1; i++)
 			for (int j = 0; j < width; j++)
-				if (i >= 1 + (width * j) && i <= 99 + (width * j)) pixels[i] = color;
-
+			if (i >= 1 + (width * j) && i <= (width - 2) + (width * j)) pixels[i] = color;
+		
+		/*   Debugger
+		System.out.print(text + ":");
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++)
+				System.out.print(pixels[width * y + x] + " ");
+			System.out.println("");
+		}
+		System.out.println("");
+		*/
 	}
 
 	public static void render(Screen screen) {
