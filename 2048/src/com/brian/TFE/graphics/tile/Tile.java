@@ -63,6 +63,11 @@ public class Tile {
 		System.out.println("");
 		*/
 	}
+	
+	public void setPosition(int xPosition, int yPosition){
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
+	}
 
 	public static void render(Screen screen) {
 		for (Tile tile : tiles)
