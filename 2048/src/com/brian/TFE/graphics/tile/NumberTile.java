@@ -2,8 +2,8 @@ package com.brian.TFE.graphics.tile;
 
 public class NumberTile extends Tile{
 
-	public NumberTile(int height, int width, int color, String text) {
-		super(height, width, color, text);
+	public NumberTile(int height, int width, int color, int xPosition, int yPosition, String text) {
+		super(height, width, xPosition, yPosition, color, text);
 		// TODO Auto-generated constructor stub
 	}
 

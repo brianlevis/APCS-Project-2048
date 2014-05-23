@@ -6,8 +6,8 @@ public class ScoreTile extends Tile {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ScoreTile(int height, int width, int color, String text) {
-		super(height, width, color, text);
+	public ScoreTile(int height, int width, int xPosition, int yPosition, int color, String text) {
+		super(height, width, xPosition, yPosition, color, text);
 		// TODO Auto-generated constructor stub
 	}
 

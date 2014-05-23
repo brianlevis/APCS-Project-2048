@@ -11,19 +11,22 @@ public class Tile {
 
 	public int[] pixels; // Not a 2D array because yolo
 
-	public String text;
+	public String name;
 	public int height, width, color;
 	public int xPosition, yPosition;
 
 	public Tile() {
 	}
 
-	public Tile(int height, int width, int color, String text) {
+	public Tile(int height, int width, int xPosition, int yPosition, int color, String name) {
 		tiles.add(this);
 		this.height = height;
 		this.width = width;
 		this.color = color;
-		this.text = text;
+		this.name = name;
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
+		
 		pixels = new int[height * width];
 
 		for (int i = 0; i < pixels.length; i++)
