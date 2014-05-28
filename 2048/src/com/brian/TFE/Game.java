@@ -20,19 +20,20 @@ import com.brian.TFE.input.Mouse;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
-	
+
 	// *** TESTING AREA ***
-	
+
 	//Tile test1 = new Tile(100, 100, 0xffeee4da, "trull");
 	//Tile test2 = new Tile(50, 50, 0xffff00fe, "trull");
 	//Tile test3 = new Tile(700, 700, 0xffdaddad, "trull");
-	
+
 	// ********************
 
-	private static int scale = 650;
-	private static int width = 1 * scale;
-	private static int height = 1 * scale;
+	private static int width = 535;
+	private static int height = 700;
 	public static String title = "2048";
+
+	// The quick brown fox jumps over the lazy dog
 
 	private Thread thread;
 	private JFrame frame;
@@ -41,12 +42,10 @@ public class Game extends Canvas implements Runnable {
 
 	private Screen screen;
 	private Tile tile = new Tile();
-	private GameManager manager = new GameManager();
+	private GameManager gm = new GameManager();
 
-	private BufferedImage image = new BufferedImage(width, height,
-			BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-			.getData();
+	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 	public Game() {
 		Dimension size = new Dimension(width, height);
@@ -65,11 +64,11 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static int getWindowWidth() {
-		return width * scale;
+		return width;
 	}
 
 	public static int getWindowHeight() {
-		return height * scale;
+		return height;
 	}
 
 	public synchronized void start() {
@@ -110,8 +109,7 @@ public class Game extends Canvas implements Runnable {
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(title + "  |  " + updates + " ups, " + frames
-						+ " fps");
+				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 			}
@@ -121,6 +119,7 @@ public class Game extends Canvas implements Runnable {
 
 	public void update() {
 		key.update();
+		gm.update();
 	}
 
 	public void render() {
@@ -138,9 +137,9 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		
+
 		//g.setColor(Color.WHITE);
-		//g.setFont(new Font("Verdana", 0, 50));
+		g.setFont(new Font("Comic sans", 0, 50));
 		// g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
 		// if (Mouse.getButton() != -1) g.drawString("Button: " +
 		// Mouse.getButton(), 80, 80);
@@ -150,7 +149,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.frame.setResizable(false);
+		game.frame.setResizable(true);
 		game.frame.setTitle(Game.title);
 		game.frame.add(game);
 		game.frame.pack();
