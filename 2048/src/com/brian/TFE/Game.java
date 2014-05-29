@@ -1,7 +1,6 @@
 package com.brian.TFE;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -41,7 +40,6 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 
 	private Screen screen;
-	private Tile tile = new Tile();
 	private GameManager gm = new GameManager();
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -129,7 +127,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		tile.render(screen);
+		Tile.render(screen);
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
@@ -149,7 +147,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.frame.setResizable(true);
+		game.frame.setResizable(false);
 		game.frame.setTitle(Game.title);
 		game.frame.add(game);
 		game.frame.pack();
