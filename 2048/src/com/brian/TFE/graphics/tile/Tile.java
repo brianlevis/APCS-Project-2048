@@ -76,7 +76,7 @@ public class Tile {
 		 * y + x] + " "); System.out.println(""); } System.out.println("");
 		 */
 	}
-	
+
 	public static void render(Screen screen) {
 		for (Tile tile : tiles)
 			screen.renderTile(tile.xPosition, tile.yPosition, tile);

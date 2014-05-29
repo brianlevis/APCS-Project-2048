@@ -127,7 +127,10 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
+		
 		Tile.render(screen);
+		//Text.render(screen);
+		
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
