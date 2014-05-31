@@ -3,22 +3,24 @@ package com.brian.TFE.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Keyboard implements KeyListener{
-	
+public class Keyboard implements KeyListener {
+
 	private boolean[] keys = new boolean[120];
-	public boolean up, down, left, right;
-	
+	private boolean up, down, left, right;
+
+	public int direction = -1;
+
 	public void update() {
 		up = keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S];
 		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
-		
-		for (int i = 0; i < keys.length; i++) {
-			if (keys[i]) {
-				System.out.println("KEY: " + i);
-			}
-		}
+
+		if (up) direction = 0;
+		else if (left) direction = 1;
+		else if (down) direction = 2;
+		else if (right) direction = 3;
+		else direction = -1;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -30,8 +32,7 @@ public class Keyboard implements KeyListener{
 	}
 
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
-	
 
 }

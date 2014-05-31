@@ -36,11 +36,11 @@ public class Game extends Canvas implements Runnable {
 
 	private Thread thread;
 	private JFrame frame;
-	private Keyboard key;
+	private Keyboard keyboard;
 	private boolean running = false;
 
 	private Screen screen;
-	private GameManager gm = new GameManager();
+	private GameManager gm;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -52,9 +52,10 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
-		key = new Keyboard();
+		keyboard = new Keyboard();
+		gm = new GameManager(keyboard);
 
-		addKeyListener(key);
+		addKeyListener(keyboard);
 
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
@@ -116,7 +117,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void update() {
-		key.update();
+		keyboard.update();
 		gm.update();
 	}
 
