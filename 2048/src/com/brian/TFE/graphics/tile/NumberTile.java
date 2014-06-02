@@ -10,17 +10,13 @@ public class NumberTile extends Tile{
 	
 	public static List<NumberTile> numberTiles = new ArrayList<NumberTile>();
 	
-	public int xGrid, yGrid;
+	public int xPosition, yPosition, number;
 	
-	public NumberTile(int xPosition, int yPosition, int xGrid, int yGrid, int number) {
-		super(GameManager.TILE_SIZE, GameManager.TILE_SIZE, xPosition, yPosition, Colors.getColor("TILE_" + Integer.toString(number)), "TILE_" + Integer.toString(number));
+	public NumberTile(int xGrid, int yGrid, int number) {
+		super(GameManager.TILE_SIZE, GameManager.TILE_SIZE, xGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.xOffset, xGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.yOffset, Colors.getColor("TILE_" + Integer.toString(number)), "TILE_" + Integer.toString(number));
 		numberTiles.add(this);
-		this.xGrid = xGrid;
-		this.yGrid = yGrid;
-	}
-	
-	public void setPosition(int xPosition, int yPosition) {
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
+		this.xPosition = xGrid;
+		this.yPosition = yGrid;
+		this.number = number;
 	}
 }

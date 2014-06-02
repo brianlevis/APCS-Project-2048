@@ -15,12 +15,12 @@ public class GameManager {
 
 	private Keyboard keyboard;
 
-	private final int xOffset = 50;
-	private final int yOffset = 220;
+	public static final int xOffset = 50;
+	public static final int yOffset = 220;
 
 	public static final int TILE_SIZE = 100;
 
-	private final int TILE_GAP = 10;
+	public static final int TILE_GAP = 10;
 	private final int TILE_BORDER = 15;
 
 	private boolean keyReleased = true;
@@ -38,8 +38,7 @@ public class GameManager {
 		ScoreTile SCORE = new ScoreTile(80, 100, 200, 50, Colors.getColor("SCORE"), "SCORE");
 		@SuppressWarnings("unused")
 		ScoreTile BEST = new ScoreTile(80, 150, 310, 50, Colors.getColor("SCORE"), "BEST");
-		for (int i = 0; i < 10; i++)
-			newTile();
+		newTile();
 	}
 
 	public void update() {
@@ -51,10 +50,10 @@ public class GameManager {
 		} else if (direction == -1) keyReleased = true;
 	}
 
-	public boolean isOccupied(int xPosition, int yPosition) {
+	public NumberTile getTile(int xPosition, int yPosition) {
 		for (NumberTile tile : NumberTile.numberTiles)
-			if (tile.xGrid == xPosition && tile.yGrid == yPosition) return true;
-		return false;
+			if (tile.xPosition == xPosition && tile.yPosition == yPosition) return tile;
+		return null;
 	}
 
 	public void newTile() {
@@ -63,20 +62,48 @@ public class GameManager {
 			int number = random.nextInt(16);
 			x = number % 4;
 			y = number / 4;
-		} while (isOccupied(x, y));
+		} while (getTile(x, y) != null);
 		int tile = 2;
 		if (random.nextInt(10) == 9) tile = 4;
 		placeTile(x, y, tile);
 	}
 
 	public void placeTile(int xPosition, int yPosition, int tile) {
-		new NumberTile(xPosition * (TILE_SIZE + TILE_GAP) + xOffset, yPosition * (TILE_SIZE + TILE_GAP) + yOffset,
-				xPosition, yPosition, tile);
+		new NumberTile(xPosition, yPosition, tile);
+	}
+
+	public void moveTile(int xPosition, int yPosition, int tile) {
+
+	}
+
+	public void changeTile(Tile tile, int number) {
+		new NumberTile(tile.xPosition, tile.yPosition, number);
+
 	}
 
 	public void makeMove(int direction) {
-		for (int i = 0; i < 4; i++) {
-			
+		for (int i = 0; i < 16; i++) {
+			int x, y;
+			switch (direction) {
+				case 0:
+					x = i % 4;
+					y = i / 4;
+					break;
+				case 1:
+					x = 3 - i / 4;
+					y = 3 - i % 4;
+					break;
+				case 2:
+					x = 3 - i % 4;
+					y = 3 - i / 4;
+					break;
+				case 3:
+					x = i / 4;
+					y = i % 4;
+					break;
+			}
+			//if(i > 4)
 		}
+
 	}
 }
