@@ -10,8 +10,8 @@ public class Tile {
 	public static List<Tile> tiles = new ArrayList<Tile>();
 
 	public int[] pixels; // Not a 2D array because yolo
-
-	private final int radius = 5;
+	
+	//private final int radius = 5;
 
 	public String name;
 	public int height, width, color;
@@ -20,7 +20,6 @@ public class Tile {
 	public Tile() {
 	}
 
-	@SuppressWarnings("unused")
 	public Tile(int height, int width, int xPosition, int yPosition, int color, String name) {
 		tiles.add(this);
 		this.height = height;
@@ -32,7 +31,9 @@ public class Tile {
 
 		pixels = new int[height * width];
 
-		if (false)
+		for (int i = 0; i < pixels.length; i++) pixels[i] = color;
+		/*
+		if (true)
 		// for some reason this only works with squares- not sure why
 		for (int i = 0; i < pixels.length; i++)
 			if (Math.abs(i / height - height / 2) >= height / 2 - radius
