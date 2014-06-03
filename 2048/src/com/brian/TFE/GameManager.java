@@ -39,10 +39,10 @@ public class GameManager {
 		@SuppressWarnings("unused")
 		ScoreTile BEST = new ScoreTile(80, 150, 310, 50, Colors.getColor("SCORE"), "BEST");
 		newTile();
+		newTile();
 	}
 
 	public void update() {
-		System.out.println(keyboard.direction);
 		int direction = keyboard.direction;
 		if (direction >= 0 && keyReleased) {
 			keyReleased = false;
@@ -56,6 +56,28 @@ public class GameManager {
 		return null;
 	}
 
+	public NumberTile getNextTile(int xPosition, int yPosition, int direction) {
+		switch (direction) {
+			case 0:
+				for (int i = yPosition - 1; i >= 0; i--)
+					if (getTile(xPosition, i) != null) return getTile(xPosition, i);
+				break;
+			case 1:
+				for (int i = xPosition + 1; i < 4; i++)
+					if (getTile(i, yPosition) != null) return getTile(i, yPosition);
+				break;
+			case 2:
+				for (int i = yPosition + 1; i > 4; i++)
+					if (getTile(xPosition, i) != null) return getTile(xPosition, i);
+				break;
+			case 3:
+				for (int i = xPosition - 1; i >= 0; i--)
+					if (getTile(i, yPosition) != null) return getTile(i, yPosition);
+				break;
+		}
+		return null;
+	}
+
 	public void newTile() {
 		int x, y;
 		do {
@@ -63,47 +85,44 @@ public class GameManager {
 			x = number % 4;
 			y = number / 4;
 		} while (getTile(x, y) != null);
-		int tile = 2;
-		if (random.nextInt(10) == 9) tile = 4;
-		placeTile(x, y, tile);
+		int number = 2;
+		if (random.nextInt(10) == 9) number = 4;
+		placeTile(x, y, number);
+		System.out.println("Placed tile at " + x + ", " + y);
 	}
 
-	public void placeTile(int xPosition, int yPosition, int tile) {
-		new NumberTile(xPosition, yPosition, tile);
+	public void placeTile(int xPosition, int yPosition, int number) {
+		new NumberTile(xPosition, yPosition, number);
 	}
 
-	public void moveTile(int xPosition, int yPosition, int tile) {
+	public void removeTile(NumberTile tile) {
+		NumberTile.numberTiles.remove(tile);
+		Tile.tiles.remove(tile);
+	}
+
+	public void moveTile(NumberTile tile, int xPosition, int yPosition) {
+		tile.xPosition = xPosition;
+		tile.yPosition = yPosition;
+	}
+
+	public void moveTile(NumberTile tile, int direction) {
 
 	}
 
-	public void changeTile(Tile tile, int number) {
+	public void changeTile(NumberTile tile, int number) {
+		removeTile(tile);
 		new NumberTile(tile.xPosition, tile.yPosition, number);
-
 	}
 
 	public void makeMove(int direction) {
-		for (int i = 0; i < 16; i++) {
-			int x, y;
-			switch (direction) {
-				case 0:
-					x = i % 4;
-					y = i / 4;
-					break;
-				case 1:
-					x = 3 - i / 4;
-					y = 3 - i % 4;
-					break;
-				case 2:
-					x = 3 - i % 4;
-					y = 3 - i / 4;
-					break;
-				case 3:
-					x = i / 4;
-					y = i % 4;
-					break;
-			}
-			//if(i > 4)
-		}
-
+		/*
+		 * for (int i = 0; i < 16; i++) { int x, y; switch (direction) { case 0:
+		 * x = i / 4; y = i % 4; break; case 1: x = i % 4; y = i / 4; break;
+		 * case 2: x = i / 4; y = 3 - i / 4; break; case 3: x = i / 4; y = i %
+		 * 4; break; }
+		 * 
+		 * 
+		 * }
+		 */
 	}
 }
