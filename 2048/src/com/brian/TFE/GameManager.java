@@ -88,7 +88,6 @@ public class GameManager {
 		int number = 2;
 		if (random.nextInt(10) == 9) number = 4;
 		placeTile(x, y, number);
-		System.out.println("Placed tile at " + x + ", " + y);
 	}
 
 	public void placeTile(int xPosition, int yPosition, int number) {
@@ -106,7 +105,20 @@ public class GameManager {
 	}
 
 	public void moveTile(NumberTile tile, int direction) {
-
+		NumberTile nextTile = getNextTile(tile.xPosition, tile.yPosition, direction);
+		if(nextTile == null) return;
+		switch(direction) {
+			case 0:
+				
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+		}
+		
 	}
 
 	public void changeTile(NumberTile tile, int number) {
