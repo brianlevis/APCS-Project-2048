@@ -17,9 +17,9 @@ public class Keyboard implements KeyListener {
 		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
 
 		if (up) direction = 0;
-		else if (left) direction = 1;
+		else if (right) direction = 1;
 		else if (down) direction = 2;
-		else if (right) direction = 3;
+		else if (left) direction = 3;
 		else direction = -1;
 	}
 
