@@ -10,12 +10,13 @@ public class NumberTile extends Tile {
 
 	public static List<NumberTile> numberTiles = new ArrayList<NumberTile>();
 
-	public int xPosition, yPosition, number;
+	public int xGrid, yGrid, number;
+	private int xPositionOld, yPositionOld, xVelocity, yVelocity;
 
-	public NumberTile(int xPosition, int yPosition, int number) {
-		super(GameManager.TILE_SIZE, GameManager.TILE_SIZE, xPosition * (GameManager.TILE_SIZE + GameManager.TILE_GAP)
-				+ GameManager.xOffset, yPosition * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.yOffset,
-				Colors.getColor("TILE_" + Integer.toString(number)), "TILE_" + Integer.toString(number));
+	public NumberTile(int xGrid, int yGrid, int number) {
+		super(GameManager.TILE_SIZE, GameManager.TILE_SIZE, xGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP)
+				+ GameManager.xOffset, yGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.yOffset, Colors
+				.getColor("TILE_" + Integer.toString(number)), "TILE_" + Integer.toString(number));
 		int n = -1;
 		if (numberTiles.isEmpty()) n = 0;
 		else do
@@ -24,8 +25,15 @@ public class NumberTile extends Tile {
 				&& n < numberTiles.size() - 1);
 
 		numberTiles.add(n, this);
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
+		this.xGrid = xGrid;
+		this.yGrid = yGrid;
 		this.number = number;
+	}
+
+	public void setPosition(int xGrid, int yGrid) {
+		this.xGrid = xGrid;
+		this.yGrid = yGrid;
+		this.xPosition = xGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.xOffset;
+		this.yPosition = yGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.yOffset;
 	}
 }
