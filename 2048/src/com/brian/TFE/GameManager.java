@@ -48,55 +48,56 @@ public class GameManager {
 		if (direction >= 0 && keyReleased) {
 			keyReleased = false;
 			makeMove(direction);
+			newTile();
 		} else if (direction == -1) keyReleased = true;
 	}
 
-	public NumberTile getTile(int xPosition, int yPosition) {
+	public NumberTile getTile(int xGrid, int yGrid) {
 		for (NumberTile tile : NumberTile.numberTiles)
-			if (tile.xPosition == xPosition && tile.yPosition == yPosition) return tile;
+			if (tile.xGrid == xGrid && tile.yGrid == yGrid) return tile;
 		return null;
 	}
 
-	public NumberTile getNextTile(int xPosition, int yPosition, int direction) {
+	public NumberTile getNextTile(int xGrid, int yGrid, int direction) {
 		switch (direction) {
 			case 0:
-				for (int i = yPosition - 1; i >= 0; i--)
-					if (getTile(xPosition, i) != null) return getTile(xPosition, i);
+				for (int i = yGrid - 1; i >= 0; i--)
+					if (getTile(xGrid, i) != null) return getTile(xGrid, i);
 				break;
 			case 1:
-				for (int i = xPosition + 1; i < 4; i++)
-					if (getTile(i, yPosition) != null) return getTile(i, yPosition);
+				for (int i = xGrid + 1; i < 4; i++)
+					if (getTile(i, yGrid) != null) return getTile(i, yGrid);
 				break;
 			case 2:
-				for (int i = yPosition + 1; i > 4; i++)
-					if (getTile(xPosition, i) != null) return getTile(xPosition, i);
+				for (int i = yGrid + 1; i < 4; i++)
+					if (getTile(xGrid, i) != null) return getTile(xGrid, i);
 				break;
 			case 3:
-				for (int i = xPosition - 1; i >= 0; i--)
-					if (getTile(i, yPosition) != null) return getTile(i, yPosition);
+				for (int i = xGrid - 1; i >= 0; i--)
+					if (getTile(i, yGrid) != null) return getTile(i, yGrid);
 				break;
 		}
 		return null;
 	}
 
-	public Location getLastSpace(int xPosition, int yPosition, int direction) {
+	public Location getLastSpace(int xGrid, int yGrid, int direction) {
 		Location location = new Location();
 		switch (direction) {
 			case 0:
-				for (int i = yPosition - 1; i >= 0; i--)
-					if (getTile(xPosition, i) == null) location.setLocation(xPosition, i);
+				for (int i = yGrid - 1; i >= 0; i--)
+					if (getTile(xGrid, i) == null) location.setLocation(xGrid, i);
 				break;
 			case 1:
-				for (int i = xPosition + 1; i < 4; i++)
-					if (getTile(i, yPosition) == null) location.setLocation(i, yPosition);
+				for (int i = xGrid + 1; i < 4; i++)
+					if (getTile(i, yGrid) == null) location.setLocation(i, yGrid);
 				break;
 			case 2:
-				for (int i = yPosition + 1; i > 4; i++)
-					if (getTile(xPosition, i) == null) location.setLocation(xPosition, i);
+				for (int i = yGrid + 1; i < 4; i++)
+					if (getTile(xGrid, i) == null) location.setLocation(xGrid, i);
 				break;
 			case 3:
-				for (int i = xPosition - 1; i >= 0; i--)
-					if (getTile(i, yPosition) == null) location.setLocation(i, yPosition);
+				for (int i = xGrid - 1; i >= 0; i--)
+					if (getTile(i, yGrid) == null) location.setLocation(i, yGrid);
 				break;
 		}
 		if (location.xPosition < 0 || location.yPosition < 0) return null;
@@ -115,8 +116,8 @@ public class GameManager {
 		placeTile(x, y, number);
 	}
 
-	public void placeTile(int xPosition, int yPosition, int number) {
-		new NumberTile(xPosition, yPosition, number);
+	public void placeTile(int xGrid, int yGrid, int number) {
+		new NumberTile(xGrid, yGrid, number);
 	}
 
 	public void removeTile(NumberTile tile) {
@@ -126,50 +127,52 @@ public class GameManager {
 
 	public void doubleTile(NumberTile tile) {
 		removeTile(tile);
-		new NumberTile(tile.xPosition, tile.yPosition, tile.number * 2);
+		new NumberTile(tile.xGrid, tile.yGrid, tile.number * 2);
 	}
 
-	public void moveTile(NumberTile tile, int xPosition, int yPosition) {
-		tile.xPosition = xPosition;
-		tile.yPosition = yPosition;
+	public void moveTile(NumberTile tile, int xGrid, int yGrid) {
+		tile.setPosition(xGrid, yGrid);
 	}
 
 	public void moveTile(NumberTile tile, int direction) {
-		NumberTile nextTile = getNextTile(tile.xPosition, tile.yPosition, direction);
-		Location lastSpace = getLastSpace(tile.xPosition, tile.yPosition, direction);
+		if(tile == null) return;
+		NumberTile nextTile = getNextTile(tile.xGrid, tile.yGrid, direction);
+		Location lastSpace = getLastSpace(tile.xGrid, tile.yGrid, direction);
 		if (nextTile != null && tile.number == nextTile.number) {
-			doubleTile(nextTile);
-			removeTile(tile);
+			moveTile(tile, nextTile.xGrid, nextTile.yGrid);
+			removeTile(nextTile);
+			doubleTile(tile);
 			return;
 		}
 		if (lastSpace != null) moveTile(tile, lastSpace.xPosition, lastSpace.yPosition);
 	}
 
 	public void makeMove(int direction) {
-
+		
 		for (int i = 0; i < 16; i++) {
-			int x, y;
+			int x = 0, y = 0;
 			switch (direction) {
 				case 0:
 					x = i / 4;
 					y = i % 4;
 					break;
 				case 1:
-					x = i % 4;
+					x = 3 - i % 4;
 					y = i / 4;
 					break;
 				case 2:
 					x = i / 4;
-					y = 3 - i / 4;
+					y = 3 - i % 4;
 					break;
 				case 3:
-					x = i / 4;
-					y = i % 4;
+					x = i % 4;
+					y = i / 4;
 					break;
 			}
 			
 			moveTile(getTile(x, y), direction);
-
+			
+			
 		}
 
 	}
