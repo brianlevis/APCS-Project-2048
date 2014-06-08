@@ -119,6 +119,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		keyboard.update();
 		gm.update();
+		Tile.update();
 	}
 
 	public void render() {
@@ -128,10 +129,10 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		screen.clear();
-		
+
 		Tile.render(screen);
 		//Text.render(screen);
-		
+
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
@@ -142,7 +143,7 @@ public class Game extends Canvas implements Runnable {
 
 		//g.setColor(Color.WHITE);
 		g.setFont(new Font("Comic sans", 0, 50));
-		
+
 		// g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
 		// if (Mouse.getButton() != -1) g.drawString("Button: " +
 		// Mouse.getButton(), 80, 80);
