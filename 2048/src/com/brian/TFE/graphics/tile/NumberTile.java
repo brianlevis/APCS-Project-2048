@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.brian.TFE.GameManager;
 import com.brian.TFE.graphics.Colors;
-import com.brian.TFE.graphics.Screen;
 
 public class NumberTile extends Tile {
 
@@ -36,5 +35,5 @@ public class NumberTile extends Tile {
 		this.xPosition = xGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.xOffset;
 		this.yPosition = yGrid * (GameManager.TILE_SIZE + GameManager.TILE_GAP) + GameManager.yOffset;
 	}
-	
+
 }
