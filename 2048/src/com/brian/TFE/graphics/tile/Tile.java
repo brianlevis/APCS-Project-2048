@@ -21,7 +21,7 @@ public class Tile {
 
 	private double xVelocity, yVelocity;
 
-	private final static double acceleration = 0.4;
+	private final static double acceleration = 4.5;
 
 	public Tile() {
 	}
@@ -86,9 +86,8 @@ public class Tile {
 		 */
 	}
 
-	public static void render(Screen screen) {
+	public static void update() {
 		for (Tile tile : tiles) {
-			screen.renderTile(tile.xTrail, tile.yTrail, tile);
 			if (tile.xTrail > tile.xPosition) {
 				if (tile.xVelocity > 0) tile.xVelocity = 0;
 				else tile.xVelocity -= acceleration;
@@ -111,6 +110,11 @@ public class Tile {
 			if (tile.yVelocity == 0) tile.yTrail = tile.yPosition;
 			else tile.yTrail += tile.yVelocity;
 		}
+	}
+
+	public static void render(Screen screen) {
+		for (Tile tile : tiles)
+			screen.renderTile(tile.xTrail, tile.yTrail, tile);
 	}
 
 	public void setPosition(int xPosition, int yPosition) {
