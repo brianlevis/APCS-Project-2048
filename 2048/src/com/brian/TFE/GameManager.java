@@ -25,7 +25,6 @@ public class GameManager {
 	private final int TILE_BORDER = 15;
 
 	private boolean keyReleased = true;
-	
 	private boolean hasTileMoved = false;
 
 	public GameManager(Keyboard keyboard) {
@@ -50,10 +49,16 @@ public class GameManager {
 		if (direction >= 0 && keyReleased) {
 			keyReleased = false;
 			makeMove(direction);
+			if (NumberTile.numberTiles.size() == 16) {
+				reset();
+				newTile();
+				newTile();
+			}
 			if (hasTileMoved) {
 				newTile();
 				hasTileMoved = false;
 			}
+
 		} else if (direction == -1) keyReleased = true;
 	}
 
@@ -154,7 +159,6 @@ public class GameManager {
 	}
 
 	public void makeMove(int direction) {
-
 		for (int i = 0; i < 16; i++) {
 			int x = 0, y = 0;
 			switch (direction) {
@@ -180,5 +184,16 @@ public class GameManager {
 
 		}
 
+	}
+
+	public void reset() {
+		System.out.println("Resetting...");
+		// done to avoid throwing a ConcurrentModificationException
+		int n = NumberTile.numberTiles.size();
+		for (int i = 0; i < n; i++) {
+			System.out.print("Removing NumberTile...");
+			removeTile(NumberTile.numberTiles.get(0));
+			System.out.println("Success!");
+		}
 	}
 }
