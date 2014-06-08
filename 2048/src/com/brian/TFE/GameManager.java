@@ -25,6 +25,8 @@ public class GameManager {
 	private final int TILE_BORDER = 15;
 
 	private boolean keyReleased = true;
+	
+	private boolean hasTileMoved = false;
 
 	public GameManager(Keyboard keyboard) {
 		this.keyboard = keyboard;
@@ -48,7 +50,10 @@ public class GameManager {
 		if (direction >= 0 && keyReleased) {
 			keyReleased = false;
 			makeMove(direction);
-			newTile();
+			if (hasTileMoved) {
+				newTile();
+				hasTileMoved = false;
+			}
 		} else if (direction == -1) keyReleased = true;
 	}
 
@@ -132,10 +137,11 @@ public class GameManager {
 
 	public void moveTile(NumberTile tile, int xGrid, int yGrid) {
 		tile.setPosition(xGrid, yGrid);
+		hasTileMoved = true;
 	}
 
 	public void moveTile(NumberTile tile, int direction) {
-		if(tile == null) return;
+		if (tile == null) return;
 		NumberTile nextTile = getNextTile(tile.xGrid, tile.yGrid, direction);
 		Location lastSpace = getLastSpace(tile.xGrid, tile.yGrid, direction);
 		if (nextTile != null && tile.number == nextTile.number) {
@@ -148,7 +154,7 @@ public class GameManager {
 	}
 
 	public void makeMove(int direction) {
-		
+
 		for (int i = 0; i < 16; i++) {
 			int x = 0, y = 0;
 			switch (direction) {
@@ -169,10 +175,9 @@ public class GameManager {
 					y = i / 4;
 					break;
 			}
-			
+
 			moveTile(getTile(x, y), direction);
-			
-			
+
 		}
 
 	}
