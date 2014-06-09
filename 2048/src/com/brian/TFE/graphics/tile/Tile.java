@@ -21,6 +21,7 @@ public class Tile {
 
 	private double xVelocity, yVelocity;
 
+	// for some reason this causes an ArrayIndexOutOfBoundsException if set to 5
 	private final static double acceleration = 4.5;
 
 	public Tile() {
